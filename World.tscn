@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Ball2.tscn" type="PackedScene" id=1]
+
+[node name="World" type="Node2D"]
+__meta__ = {
+"_edit_vertical_guides_": [ -231.888 ]
+}
+
+[node name="Collisions" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Collisions"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Collisions/StaticBody2D"]
+polygon = PoolVector2Array( -2.01376, -0.862137, 1.0892, 767.525, 579.697, 770.7, 576.347, -0.0478249, 0.28178, -1.46822, -7.7999, -36.245, 600.684, -38.0268, 608.011, 1049.9, -49.0941, 1052.4, -19.3368, -8.65414 )
+
+[node name="Polygon2D" type="Polygon2D" parent="Collisions"]
+polygon = PoolVector2Array( -149.924, 448.51, 124.783, 443.753, 123.593, 315.319, -128.518, 312.94 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Collisions/Polygon2D"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Collisions/Polygon2D/StaticBody2D"]
+polygon = PoolVector2Array( -128.26, 313.13, 123.409, 315.65, 125.299, 443.532, -149.679, 448.886 )
+
+[node name="Ball2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 296.177, 268.091 )
