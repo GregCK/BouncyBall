@@ -13,6 +13,7 @@ enum{
 	WALL
 }
 
+
 var state = START
 
 
@@ -56,26 +57,44 @@ func wall_state():
 			set_linear_velocity(jump_velocity_right)
 		state = AIR
 	
-#	if is_on_left:
-#		if wall_curr_detected(true):
-#			state = AIR
-#	elif is_on_right:
-#		if wall_curr_detected(false):
-#			state = AIR
+	if is_on_left:
+		if !wall_curr_detected(true):
+			state = AIR
+	elif is_on_right:
+		if !wall_curr_detected(false):
+			state = AIR
 
 
 func air_state(delta):
 	var on_left_wall = wall_just_detected(true)
 	var on_right_wall = wall_just_detected(false)
 	if  on_left_wall or on_right_wall:
+		
+		if wall_curr_detected(true):
+			pass
+		else:
+			pass
+		
+		
 		var old_velocity = get_linear_velocity()
 		var new_velocity = Vector2(0, old_velocity.y)
 		set_linear_velocity(new_velocity)
+		
+		
+		if wall_curr_detected(true):
+			pass
+		else:
+			pass
+		
 		
 		set_gravity_scale(wall_gravity)
 		
 		
 		state = WALL
+
+
+func move_until_back_on_wall():
+	pass
 
 
 func start_state(delta):
@@ -100,6 +119,7 @@ func wall_curr_detected(isLeft:bool):
 		raycasts = leftRayCasts
 	else:
 		raycasts = rightRayCasts
+		
 	for raycast in raycasts.get_children():
 		if raycast.is_colliding():
 			update_on_wall_variables(isLeft, true)

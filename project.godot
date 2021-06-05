@@ -22,7 +22,12 @@ config/icon="res://icon.png"
 [display]
 
 window/size/width=576
-window/size/height=768
+window/size/height=1024
+window/size/test_width=432
+window/size/test_height=768
+window/handheld/orientation="portrait"
+window/stretch/mode="2d"
+window/stretch/aspect="keep_width"
 
 [input]
 
@@ -39,4 +44,6 @@ Space={
 
 [rendering]
 
+quality/2d/use_pixel_snap=true
+environment/default_clear_color=Color( 0.0431373, 0, 0.2, 1 )
 environment/default_environment="res://default_env.tres"
