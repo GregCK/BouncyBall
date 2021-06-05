@@ -72,8 +72,8 @@ radius = 30.0
 size = 48
 font_data = ExtResource( 3 )
 
-[node name="Ball3" type="RigidBody2D"]
-position = Vector2( 284.678, 869.018 )
+[node name="Ball" type="RigidBody2D"]
+position = Vector2( 288, 869.018 )
 mass = 3.64898
 physics_material_override = SubResource( 1 )
 gravity_scale = 0.0

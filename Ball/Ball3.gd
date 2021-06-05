@@ -8,8 +8,10 @@ onready var crackSprite = $CrackSprite
 
 
 export var flings = 4
-export var max_bounces = 12
+export var max_bounces = 3
 var curr_bounces = 0
+var isRotating = false
+var won = false
 
 signal die
 
@@ -21,12 +23,15 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	process_fling(delta)
+	if !won:
+		process_fling(delta)
+	if isRotating:
+		rotate(delta)
 
 func process_fling(delta):
 	if (Input.is_action_just_pressed("Click")):
 		first_touch = get_global_mouse_position()
-	if (Input.is_action_just_released("Click")):
+	if (Input.is_action_just_released("Click") and first_touch != null):
 		release = get_global_mouse_position()
 		
 		var dir = (release - first_touch).normalized()
@@ -37,6 +42,16 @@ func process_fling(delta):
 			die()
 		update_label()
 
+
+func win():
+	isRotating = true
+	won = true
+
+var rotationSpeed = 0
+
+func rotate(delta):
+	rotation_degrees += rotation_degrees + (rotationSpeed * delta)
+	rotationSpeed += 100
 
 func update_label():
 	var flings_string = str(flings)

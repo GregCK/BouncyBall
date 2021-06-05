@@ -1,14 +1,20 @@
 extends Node2D
 
 
-onready var ball = $Ball3
+onready var ball = $Ball
+
+var isBallAlive = true
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	ball.connect("die", self, "handle_die")
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(_delta):
+	if isBallAlive == false:
+		if Input.is_action_just_pressed("Click"):
+			get_tree().reload_current_scene()
+
+func handle_die():
+	isBallAlive = false

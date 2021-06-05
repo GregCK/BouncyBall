@@ -24,5 +24,5 @@ polygon = PoolVector2Array( -149.924, 448.51, 124.783, 443.753, 123.593, 315.319
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Collisions/Polygon2D/StaticBody2D"]
 polygon = PoolVector2Array( -128.26, 313.13, 123.409, 315.65, 125.299, 443.532, -149.679, 448.886 )
 
-[node name="Ball3" parent="." instance=ExtResource( 1 )]
+[node name="Ball" parent="." instance=ExtResource( 1 )]
 position = Vector2( 326.404, 159.804 )
