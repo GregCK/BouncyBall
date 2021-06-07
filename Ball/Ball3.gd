@@ -3,14 +3,16 @@ extends RigidBody2D
 var first_touch
 var release
 
-onready var label = $Label
-onready var crackSprite = $CrackSprite
+onready var visuals = $Visuals
+onready var label = $Visuals/Label
+onready var crackSprite = $Visuals/CrackSprite
 
+var goal = null
+var vec_to_goal = null
 
 export var flings = 4
 export var max_bounces = 3
 var curr_bounces = 0
-var isRotating = false
 var won = false
 
 signal die
@@ -25,8 +27,13 @@ func _ready():
 func _process(delta):
 	if !won:
 		process_fling(delta)
-	if isRotating:
-		rotate(delta)
+	else:
+		pass
+#		vec_to_goal = -(self.get_global_position() - goal.get_global_position())
+#		var impulse = vec_to_goal * delta
+#		linear_velocity = vec_to_goal * delta * 300
+#		add_force(Vector2(),impulse)
+#		rotate(delta)
 
 func process_fling(delta):
 	if (Input.is_action_just_pressed("Click")):
@@ -43,15 +50,21 @@ func process_fling(delta):
 		update_label()
 
 
-func win():
-	isRotating = true
+func win(new_goal):
+	goal = new_goal
+	
+	gravity_scale = 1
+	
 	won = true
+
 
 var rotationSpeed = 0
 
 func rotate(delta):
-	rotation_degrees += rotation_degrees + (rotationSpeed * delta)
-	rotationSpeed += 100
+	var new_roation_degrees = visuals.rotation_degrees + (rotationSpeed * delta)
+	visuals.rotation_degrees += fmod(new_roation_degrees, 360)
+	if rotationSpeed < 2:
+		rotationSpeed += 1
 
 func update_label():
 	var flings_string = str(flings)
