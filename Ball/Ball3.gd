@@ -74,6 +74,7 @@ func update_label():
 
 
 func _on_Ball3_body_entered(_body):
+	Globals.camera.shake(100, 0.1, 200)
 	curr_bounces += 1
 	if curr_bounces > max_bounces:
 		die()
