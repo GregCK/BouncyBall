@@ -19,6 +19,10 @@ config/name="Bouncy Ball"
 run/main_scene="res://Levels/Level1.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+SceneChanger="*res://SceneChanger.tscn"
+
 [display]
 
 window/size/width=576

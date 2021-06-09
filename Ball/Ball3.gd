@@ -6,6 +6,7 @@ var release
 onready var visuals = $Visuals
 onready var label = $Visuals/Label
 onready var crackSprite = $Visuals/CrackSprite
+onready var trail = $Trail
 
 var goal = null
 var vec_to_goal = null
@@ -19,13 +20,14 @@ signal die
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	trail.visible = false
 	update_label()
 	crackSprite.set_frame(0)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if !won:
+	if !won and flings > 0:
 		process_fling(delta)
 	else:
 		pass
@@ -45,15 +47,15 @@ func process_fling(delta):
 		linear_velocity = dir * delta * 30000
 		
 		flings -= 1
-		if flings <= 0:
-			die()
+
 		update_label()
+		trail.visible = true
 
 
 func win(new_goal):
 	goal = new_goal
 	
-	gravity_scale = 1
+	gravity_scale = 3
 	
 	won = true
 
@@ -75,9 +77,10 @@ func _on_Ball3_body_entered(_body):
 	curr_bounces += 1
 	if curr_bounces > max_bounces:
 		die()
-	var percent_completed = float(curr_bounces) / float(max_bounces)
-	var frame = int(percent_completed * 12)
-	crackSprite.set_frame(frame)
+	else:
+		var percent_completed = float(curr_bounces) / float(max_bounces)
+		var frame = int(percent_completed * 12)
+		crackSprite.set_frame(frame)
 
 func die():
 	emit_signal("die")

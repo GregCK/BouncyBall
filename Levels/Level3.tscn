@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Ball/Ball3.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Level.gd" type="Script" id=2]
 [ext_resource path="res://Goal.tscn" type="PackedScene" id=3]
+[ext_resource path="res://TileMap.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 581.077, 10 )
@@ -12,7 +13,6 @@ extents = Vector2( 10, 569.217 )
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 2 )
-nextLevel = "res://Levels/Level2.tscn"
 
 [node name="Collisions" type="Node2D" parent="."]
 
@@ -34,7 +34,12 @@ shape = SubResource( 2 )
 position = Vector2( 586, 512.795 )
 shape = SubResource( 2 )
 
+[node name="TileMap" parent="Collisions" instance=ExtResource( 4 )]
+tile_data = PoolIntArray( 393216, 0, 0, 393217, 0, 0, 393218, 0, 0, 393219, 0, 0, 393220, 0, 0, 458752, 0, 0, 458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0 )
+
 [node name="Goal" parent="." instance=ExtResource( 3 )]
 position = Vector2( 285.905, 195.088 )
 
 [node name="Ball" parent="." instance=ExtResource( 1 )]
+flings = 3
+max_bounces = 0

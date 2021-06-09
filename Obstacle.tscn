@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Obstacle.gd" type="Script" id=1]
+
+[node name="Polygon2D" type="Polygon2D"]
+color = Color( 0.513726, 0.133333, 0.196078, 1 )
+polygon = PoolVector2Array( -125.744, 378.358, 336.6, 378.356, 336.698, 497.023, -125.114, 496.161 )
+script = ExtResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2( 105.511, 437.76 )
+polygon = PoolVector2Array( -231.734, -59.3279, 230.722, -59.8576, 170.333, -16.4196, 229.133, 56.6833, -229.615, 58.8023 )
