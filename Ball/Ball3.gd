@@ -3,10 +3,14 @@ extends RigidBody2D
 var first_touch
 var release
 
+const deathEffect = preload("res://Ball/DeathEffect.tscn")
+
 onready var visuals = $Visuals
 onready var label = $Visuals/Label
 onready var crackSprite = $Visuals/CrackSprite
 onready var trail = $Trail
+onready var bounce_sound = $BounceSound
+onready var fling_sound = $FlingSound
 
 var goal = null
 var vec_to_goal = null
@@ -48,6 +52,7 @@ func process_fling(delta):
 		
 		flings -= 1
 
+#		fling_sound.play()
 		update_label()
 		trail.visible = true
 
@@ -73,8 +78,16 @@ func update_label():
 	label.set_text(flings_string)
 
 
+var bounce_pitch = 1.0
+
+func make_bounce_sound():
+	bounce_sound.play()
+	bounce_pitch += 0.1
+	bounce_sound.set_pitch_scale(bounce_pitch)
+
 func _on_Ball3_body_entered(_body):
 	Globals.camera.shake(100, 0.1, 200)
+	make_bounce_sound()
 	curr_bounces += 1
 	if curr_bounces > max_bounces:
 		die()
@@ -84,5 +97,11 @@ func _on_Ball3_body_entered(_body):
 		crackSprite.set_frame(frame)
 
 func die():
+	var d = deathEffect.instance()
+	var world = get_tree().current_scene
+	world.add_child(d)
+	d.global_position = global_position
+	
+	
 	emit_signal("die")
 	queue_free()
