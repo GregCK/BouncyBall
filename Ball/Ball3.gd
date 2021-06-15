@@ -3,7 +3,9 @@ extends RigidBody2D
 var first_touch
 var release
 
-const deathEffect = preload("res://Ball/DeathEffect.tscn")
+const deathEffect = preload("res://Effects/DeathEffect.tscn")
+const deathRigidBody = preload("res://Effects/DeathRigidBody.tscn")
+const deathRigidBodyGroup = preload("res://Effects/DeathRigidBodyGroup.tscn")
 
 onready var visuals = $Visuals
 onready var label = $Visuals/Label
@@ -97,11 +99,30 @@ func _on_Ball3_body_entered(_body):
 		crackSprite.set_frame(frame)
 
 func die():
+	add_death_rigidBody_group()
+	
+	emit_signal("die")
+	queue_free()
+
+
+func add_death_particle():
 	var d = deathEffect.instance()
 	var world = get_tree().current_scene
 	world.add_child(d)
 	d.global_position = global_position
+
+func add_death_rigidBody():
+	var d = deathRigidBody.instance()
+	var world = get_tree().current_scene
+#	world.add_child(d)
+	world.call_deferred("add_child", d)
+	d.global_position = global_position
+
+func add_death_rigidBody_group():
+	var d = deathRigidBodyGroup.instance()
+	var world = get_tree().current_scene
+#	world.add_child(d)
+	world.call_deferred("add_child", d)
+	d.global_position = global_position
 	
 	
-	emit_signal("die")
-	queue_free()
